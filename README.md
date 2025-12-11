@@ -11,9 +11,30 @@ All modified sections in the source code are marked with the keyword:
 user define
 
 ----------------------------------------
-How to Run
+## How to build
 
-To run this tool, please install the necessary dependencies for ABC.
+Prerequisites:
+- A working C/C++ toolchain (gcc/clang, make)
+- CMake (version 3.x)
+- Any dependencies required by ABC (install system packages as needed for your platform)
+
+Quick build (from repository root):
+
+```bash
+mkdir -p build
+cd build
+cmake ..
+cmake --build . -j$(nproc)
+```
+
+This will build the project and produce the `abc` executable under the build tree, for example:
+
+```
+build/zinterface/abcorig/abc
+```
+
+----------------------------------------
+## run
 
 Common Commands:
 xxx.v; if -K 6; write_blif xxx.blif
@@ -22,8 +43,25 @@ xxx.v; if -K 6; write_blif xxx.blif
 - Command: if -K 6 (LUT mapping with K=6)
 - Output: xxx.blif (BLIF format file)
 
+
+Quick run examples:
+
+run a sequence of abc commands (read Verilog, map with K=6, write BLIF)
+
+```
+build/zinterface/abcorig/abc -c "read zepfl/adder.v; if -K 6; write_blif zepfl/adder_mapped_k6.blif; quit"
+```
+
+The example above reads the Verilog `zepfl/adder.v`, performs FPGA LUT mapping with K=6, and writes the mapped BLIF to `zepfl/adder_mapped_k6.blif`.
+
 ----------------------------------------
-Output Format
+## Testcases
+
+Example testcases and small benchmarks are stored in the `zepfl/` directory. 
+
+
+----------------------------------------
+## Output Format
 
 The output file format is consistent with the native ABC output.
 All lines that are merged into the same cut are marked with one of the following:
@@ -37,19 +75,8 @@ All lines that are merged into the same cut are marked with one of the following
    and can be merged with other similar types.
 
 ----------------------------------------
-Theory and Algorithm
 
-For details on the theoretical background and algorithms used,
-please refer to the following publication:
 
-Lu, S.; Shang, L.; Qu, Q.; Jung, S.; Liang, Q.; Pan, C.
-"An Efficient Multi-Output LUT Mapping Technique for Field-Programmable Gate Arrays"
-Electronics 2025, 14, 1782.
-DOI: https://doi.org/10.3390/electronics14091782
 
-----------------------------------------
-Acknowledgements
 
-This project is based on the ABC logic synthesis tool.
-The modifications aim to improve FPGA mapping efficiency
-through enhanced multi-output LUT mapping techniques.
+
