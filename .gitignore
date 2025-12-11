@@ -9,3 +9,5 @@ nauty/gtools.h
 nauty/makefile
 nauty/nauty.h
 
+zepfl/*.blif
+abc.history

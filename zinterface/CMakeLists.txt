@@ -11,6 +11,7 @@ file(GLOB FILENAMES *.cpp)
 set(lt1name ${CMAKE_CURRENT_SOURCE_DIR}/link_test1.cpp)
 set(lt2name ${CMAKE_CURRENT_SOURCE_DIR}/link_test2.cpp)
 list(REMOVE_ITEM FILENAMES ${lt1name} ${lt2name})
+list(REMOVE_ITEM FILENAMES ${CMAKE_CURRENT_SOURCE_DIR}/cnf_gen.cpp)
 
 foreach(FILENAME ${FILENAMES})
     get_filename_component(BASENAME ${FILENAME} NAME_WE)

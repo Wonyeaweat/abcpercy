@@ -1,6 +1,11 @@
 add_library(percy INTERFACE)
 
 target_include_directories(percy INTERFACE ${PROJECT_SOURCE_DIR}/include)
+# Make sure percy users also see the vendored abc/abcorig and syrup headers
+target_include_directories(percy INTERFACE ${PROJECT_SOURCE_DIR}/abcorig/src)
+target_include_directories(percy INTERFACE ${PROJECT_SOURCE_DIR}/zinterface/abcorig/src)
+target_include_directories(percy INTERFACE ${PROJECT_SOURCE_DIR}/abc)
+target_include_directories(percy INTERFACE ${PROJECT_SOURCE_DIR}/syrup)
 
 #target_link_libraries(percy INTERFACE include fileprc)
 
@@ -15,6 +20,10 @@ if (${PERCY_SATOKO})
 else()
     target_compile_definitions(percy INTERFACE DISABLE_SATOKO)
 endif()
+
+# ABC uses a namespace macro; define it and other compile-time flags so consumers
+# of the percy target (zinterface executables) get consistent macros.
+target_compile_definitions(percy INTERFACE ABC_NAMESPACE=pabc ABC_NO_USE_READLINE LIN64)
 
 target_link_libraries(percy INTERFACE kitty libabcsat)
 
