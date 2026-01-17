@@ -43,7 +43,7 @@ ABC_NAMESPACE_HEADER_START
  * - On the very first call with seed == 0 the PRNG is seeded with a fixed
  *   default value to ensure deterministic behaviour across runs.
  */
-static inline word Abc_RandomW(unsigned seed)
+    static inline word Abc_RandomW(unsigned seed)
 {
     // Use a 64-bit Mersenne Twister for decent randomness and reproducibility.
     static thread_local std::mt19937_64 rng((uint64_t)5489u);
@@ -52,7 +52,8 @@ static inline word Abc_RandomW(unsigned seed)
     if (seed != 0) {
         rng.seed((uint64_t)seed);
         initialized = true;
-    } else if (!initialized) {
+    }
+    else if (!initialized) {
         // first-time default seeding for deterministic behavior
         rng.seed((uint64_t)5489u);
         initialized = true;
